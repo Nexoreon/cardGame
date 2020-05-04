@@ -3,22 +3,23 @@ $fontWeight: 500;
 
 @font-face {
     font-family: 'FARegular';
-    src: url('http://192.168.0.100/site/fonts/FontAwesomePro/fa-regular-400.woff2') format('woff2'),
-        url('http://192.168.0.100/site/fonts/FontAwesomePro/fa-regular-400.woff') format('woff');
+    src: url('/fonts/FontAwesomePro/fa-regular-400.woff2') format('woff2'),
+        url('/fonts/FontAwesomePro/fa-regular-400.woff') format('woff');
 }
 
 @font-face {
-    font-family: Gsense-regular;
-    src: url(http://192.168.0.100/site/fonts/gsense/gsense-regular.ttf);
+    font-family: 'gsense-regular';
+    src: url('/fonts/gsense/gsense-regular.ttf');
 }
 
 @font-face {
-    font-family: Gsense-medium;
-    src: url(http://192.168.0.100/site/fonts/gsense/gsense-medium.ttf);
+    font-family: 'gsense-medium';
+    src: url('/fonts/gsense/gsense-medium.ttf');
 }
 
 body {
-    font-family: gsense-regular;
+    font-family: 'gsense-regular';
+    background: #22252a;
 }
 
 h1 {

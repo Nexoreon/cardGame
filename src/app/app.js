@@ -4,12 +4,12 @@ import Card from './components/card'
 class App extends Component {
 
   getCardsNumber = () => {
-    const cardsAmount = 12 // ToDo желательно сделать чтобы количество читалось из state
+    const cardsAmount = 12 // TODO желательно сделать чтобы количество читалось из state
     let number = Math.floor(Math.random() * cardsAmount) // Данная строка функции выбирает рандомное число которое будет использовано для каждой карточки получая данные из state.cards
     return number
   }
  
-  state = { // Хранит информацию
+  state = { //
      cards: [ //TODO добавить больше карточек для игры
         {name: 'Человек паук', imgUrl: './images/1.jpg', intelligence: 275, strength: 276, velocity: 213, specialSkills: 140, fightingSkills: 280, special: 1},
         {name: 'Дядюшка Бен', imgUrl: './images/2.jpg', intelligence: 130, strength: 71, velocity: 112, specialSkills: 54, fightingSkills: 68},
@@ -53,7 +53,7 @@ class App extends Component {
      rounds: { 
        currentRound: 1,
      },
-     getLocations: { // В данный момент неиспользуется. Здесь хранится информация о местоположениях элементов в которые будут заносится характеристики карточек в HTML
+     getLocations: { // TODO перенести данные о расположение элементов сюда
        myCard: {},
        competitorCard: {
         cardSlot: document.querySelector(".card_ready--right"),
@@ -73,13 +73,13 @@ class App extends Component {
      nfc: [this.getCardsNumber(), this.getCardsNumber(), this.getCardsNumber(), this.getCardsNumber(), this.getCardsNumber(), this.getCardsNumber(), this.getCardsNumber(), this.getCardsNumber(), this.getCardsNumber(), this.getCardsNumber()] // numberForCard
  }
 
-  // Отвечает за обработку карточки противника которая будет отображаться на поле сражения после выбора карточки на поле
+  // Метод отвечает за обработку карточки противника которая будет отображаться на поле битвы после выбора
  handleCompetitorCard = (id, number) => {
 
-   // Получаем номер карты для дальнейшего импорта и использования цифровых значений карточки
+   // Получаем номер карты для дальнейшей обработки значений
   const cardNumber = this.state.cards[id]
 
-   // Собираем местоположения элементов противника на столе сражения
+   // Собираем местоположения элементов первого игрока на столе сражения
   const locations = {
      name: document.querySelector("#CCName"),
      image: document.querySelector("#CCcardImg"),
@@ -92,10 +92,10 @@ class App extends Component {
      status: document.querySelector('#currentStatus'),
     }
 
-   // Показываем карточку с информацией после выбора карточки. По умолчанию display: none (данный элемент не отображается в HTML до выбора карточки)
+   // Показываем карточку с информацией после выбора карточки
    document.querySelector("#competitorCurrentCardInfo").setAttribute('style', 'display: flex;')
 
-  // Изменяем состояние карты этого игрока на true, благодаря чему он появится с его стороны игрового поля
+  // Изменяем состояние карты этого игрока на true, для того чтобы показать информацию о карточке на поле битвы
    this.setState( {
      chkPlayersCards: { ...this.state.chkPlayersCards, competitorCard: true },
      selectedCards: {...this.state.selectedCards, competitorCard: {cardId: id, cardSlot: number}}
@@ -121,7 +121,7 @@ class App extends Component {
    } else if (this.state.chkPlayersCards.myCard == true) { locations.status.innerHTML = 'Игроки выбрали свои карты. Теперь нажмите кнопку "Продолжить" для запуска игры' }
  }
 
- // Выполняет идентичные действия как и handleCompetitorCard, только для основного игрока
+ // Выполняет идентичные действия как и handleCompetitorCard, только для второго игрока
  handleMyCard = (id, number) => {
   const cardNumber = this.state.cards[id]
 
@@ -161,14 +161,14 @@ class App extends Component {
    } else if (this.state.chkPlayersCards.competitorCard == true) { locations.status.innerHTML = 'Игроки выбрали свои карты. Теперь нажмите кнопку "Продолжить" для запуска игры' }
  }
 
- // После нажатия по заглушке, она удаляется, а на её месте появляется полноценная карточка
+ // После нажатия по заглушке, она удаляется
  deleteButton = (e) => {
   const button = document.querySelector(e)
   button.parentNode.removeChild(button)
   return false
 }
  
- // Если один из игроков выбрал себе карту, то на его поле сражений пропадает заглушка и появляется полноценная карточка, а так же показываются характеристики карты
+ // Если один из игроков выбрал себе карту, то на поле битвы с его стороны пропадает заглушка и появляется полноценная карточка, а так же показываются характеристики карты
  toggleCardHandler = (id) => {
    this.setState( {
      showCard: { ...this.state.showCard, [id]: true }
@@ -274,7 +274,7 @@ startGame = () => {
   this.setState( { 
      showCard: { ...this.state.showCard, ['card'+myCardSlot]: false, ['card'+competitorCardSlot]: false}, // Убирает сыгранные карты с поля
      rounds: {...this.state.rounds, currentRound: currentRound + 1 }
-  }, () => { 
+  }, () => { // Сообщает результат игры
     if (this.state.rounds.currentRound == 6 && this.state.totalScore.myScore > this.state.totalScore.competitorScore) {
       document.querySelector("#cardGame").innerHTML = '<div class="cardGame_gameOver"><i class="far fa-trophy-alt icon_win"></i><h1>Вы победили</h1><div class="cardGame_gameOver_playersScore"><div><h3>Игрок</h3>' + '<p class="result_win">' + this.state.totalScore.myScore + '</p></div>' + '<div><h3>Соперник</h3>' + '<p class="result_lose">' + this.state.totalScore.competitorScore + '</p></div></div><a class="ipsButton--cardGame ipsButton--results" onclick="document.location.reload(true)">Новая игра</a></div>'
     } else if (this.state.rounds.currentRound == 6 && this.state.totalScore.myScore < this.state.totalScore.competitorScore) {
@@ -302,7 +302,6 @@ startGame = () => {
     // Назначает для каждой карточки свой индивидуальный номер который был получен из рандомизатора номеров. Помогает определить какая карточка будет в каждом слоте
     const cardSlot = [cards[cardNumber[0]], cards[cardNumber[1]], cards[cardNumber[2]], cards[cardNumber[3]], cards[cardNumber[4]], cards[cardNumber[5]], cards[cardNumber[6]], cards[cardNumber[7]], cards[cardNumber[8]], cards[cardNumber[9]]]
 
-    // ToDo удалить лишние параметры при вызове компонента, так как они больше неиспользуются
     // Поле игры с карточками
     return (
     <div id="table" className="table">
