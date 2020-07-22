@@ -1,7 +1,7 @@
 {
-  "name": "basic-project",
-  "version": "1.0.0",
-  "description": "basic project",
+  "name": "matrix_cards",
+  "version": "2.0.0",
+  "description": "A simple card game that you can play with friend or a bot",
   "main": "index.js",
   "scripts": {
     "dev": "webpack --mode development",
@@ -9,7 +9,7 @@
     "dev:watch": "webpack --mode development --watch",
     "start": "webpack-dev-server --mode development --open"
   },
-  "author": "",
+  "author": "Nexoreon",
   "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.8.4",

@@ -1,176 +1,39 @@
-$mainSize: 30px;
-$fontWeight: 500;
+@import '/variables.scss';
+@import './src/app/modules/StartParams/StartParams.scss';
+@import './src/app/components/players/players.scss';
+@import './src/app/components/BattleTable/BattleTable.scss';
+@import './src/app/components/cards/Card.scss';
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
 @import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
 body {
     font-family: 'Open Sans';
-    background: #22252a;
+    background: $bgColor;
+    color: $textColor;
+    height: 100%;
+    margin: 0;
 }
 
-h1 {
-    font-size: $mainSize;
-    font-weight: $fontWeight;
-    color: #a6a7a7;
-}
-
-.cards {
+.cardGame_Content {
     display: flex;
+    height: 100%;
+    width: 100%;
+    position: absolute;
 }
 
 .table {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 70% 30%;
+    grid-template-rows: 50% 50%;
+    grid-template-areas:
+        'FirstPlayer BattleTable'
+        'SecoundPlayer BattleTable';
+    height: 100%;
+    width: 100%;
 }
 
-.battle-table {
-    display: flex;
-    justify-content: center;
-    width: 1190px;
-
-    &-status {
-        border: 1px solid #323639;
-        border-radius: 8px;
-        padding: 0 10px;
-    }
-
-    &-score {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        &>h3 {
-            font-size: 25px;
-            letter-spacing: 0.3px;
-            font-weight: $fontWeight;
-            margin: 8px 0;
-        }
-    }
-}
-
-.card {
-    margin: 20px;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-
-    &_info {
-        display: none;
-
-        &:hover>.card_img {
-            filter: blur(3px);
-        }
-
-    }
-
-    &_ready {
-        display: flex;
-        width: 600px;
-
-        &:first-child {
-            justify-content: flex-end;
-        }
-
-        &:last-child {
-            justify-content: flex-start;
-        }
-    }
-
-    &_img>img {
-        border-radius: 8px;
-        width: 200px;
-        height: 300px;
-    }
-
-    &:hover>.card_img {
-        filter: blur(3px);
-        transition: 0.5s;
-
-        &--battle {
-            filter: none;
-        }
-    }
-
-    &:hover>.card_info {
-        display: flex;
-        flex-wrap: wrap;
-        color: #fff;
-        position: absolute;
-        width: -webkit-fill-available;
-    }
-
-    &_cover {
-        width: 200px;
-        height: 300px;
-        margin: 20px;
-        border-radius: 8px;
-    }
-}
-
-.info_skill {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    border: solid #000 1px;
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    width: 70px;
-    margin: 13px;
-    height: 72px;
-
-    &--battle {
-        background: none;
-        padding: 3px;
-        border: 1px solid #323639;
-        padding: 5px;
-        height: 42px;
-        width: 75px;
-        position: relative;
-
-        &:first-child {
-            width: 100%;
-            height: 30px;
-        }
-
-        &:first-child,
-        :last-child {
-            position: relative;
-            top: 0;
-            font-weight: 600;
-        }
-
-        &>p {
-            color: #a6a7a7;
-            font-weight: 600;
-        }
-
-        &>h3 {
-            color: #969696;
-            position: absolute;
-            top: -22px;
-            padding: 0 5px;
-            background: #22252a;
-        }
-    }
-
-    &>h3 {
-        font-size: 13px;
-        letter-spacing: 0.3px;
-    }
-}
-
-.current_card_info {
-    width: 230px;
-    flex-wrap: wrap;
-    height: fit-content;
-    align-self: center;
-    color: #fff;
-}
-
-.ipsButton {
+.button {
 
     &--cardGame {
         align-self: center;
@@ -199,24 +62,6 @@ h1 {
     }
 }
 
-.interactive-area {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 200px;
-    color: #fff;
-    padding: 25px;
-}
-
-.score-sides {
-    display: flex;
-
-    &>p {
-        font-size: 26px;
-        margin: 5px 25px
-    }
-}
-
 .cardGame {
 
     &_gameOver {
@@ -224,13 +69,13 @@ h1 {
         border: 1px solid #323639;
         border-radius: 8px;
         display: block;
-        width: fit-content;
+        width: 420px;
         margin: auto;
         padding: 10px 25px;
-        margin-top: 13%;
 
         &_playersScore {
             display: flex;
+            justify-content: center;
 
             &>div {
                 width: 120px;

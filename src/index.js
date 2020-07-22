@@ -3,6 +3,6 @@ import './scss/index.scss'
 
 import React from "react"
 import ReactDOM from "react-dom"
-import App from "./app/app.js"
+import StartParams from "./app/modules/StartParams/StartParams"
 
-ReactDOM.render(<App />, document.querySelector('#cardGame'))
+ReactDOM.render(<StartParams />, document.querySelector('#cardGame'))
