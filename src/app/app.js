@@ -6,7 +6,7 @@ import SecoundPlayer from './components/players/SecoundPlayer'
 class App extends Component {
 
   getCardsNumber = () => {
-    const cardsAmount = 30 // TODO желательно сделать чтобы количество читалось из state
+    const cardsAmount = 45 // TODO желательно сделать чтобы количество читалось из state
     let number = Math.floor(Math.random() * cardsAmount) // Данная строка функции выбирает рандомное число которое будет использовано для каждой карточки получая данные из state.cards
     return number
   }
@@ -42,7 +42,22 @@ class App extends Component {
         {name: 'Аркейд', imgUrl: './images/27.jpg', intelligence: 357, strength: 135, velocity: 128, specialSkills: 84, fightingSkills: 141},
         {name: 'Доктор Осьминог', imgUrl: './images/28.jpg', intelligence: 327, strength: 141, velocity: 127, specialSkills: 66, fightingSkills: 285},
         {name: 'Белый кролик', imgUrl: './images/29.jpg', intelligence: 124, strength: 99, velocity: 136, specialSkills: 72, fightingSkills: 84},
-        {name: 'Существо', imgUrl: './images/30.jpg', intelligence: 142, strength: 426, velocity: 139, specialSkills: 68, fightingSkills: 346, special: 1}
+        {name: 'Существо', imgUrl: './images/30.jpg', intelligence: 142, strength: 426, velocity: 139, specialSkills: 68, fightingSkills: 346, special: 1},
+        {name: 'Жёлтый Жакет', imgUrl: './images/31.jpg', intelligence: 389, strength: 419, velocity: 345, specialSkills: 372, fightingSkills: 200},
+        {name: 'Падаль', imgUrl: './images/32.jpg', intelligence: 339, strength: 278, velocity: 88, specialSkills: 135, fightingSkills: 99},
+        {name: 'Тётушка Мэй', imgUrl: './images/33.jpg', intelligence: 140, strength: 52, velocity: 89, specialSkills: 42, fightingSkills: 31},
+        {name: 'Капитан Британия', imgUrl: './images/34.jpg', intelligence: 286, strength: 423, velocity: 296, specialSkills: 228, fightingSkills: 276},
+        {name: 'Лунный Рыцарь', imgUrl: './images/35.jpg', intelligence: 153, strength: 159, velocity: 202, specialSkills: 63, fightingSkills: 277},
+        {name: 'Кукловод', imgUrl: './images/36.jpg', intelligence: 219, strength: 136, velocity: 85, specialSkills: 347, fightingSkills: 93},
+        {name: 'Бетти Брэнт', imgUrl: './images/37.jpg', intelligence: 261, strength: 42, velocity: 132, specialSkills: 64, fightingSkills: 139},
+        {name: 'Красный череп', imgUrl: './images/38.jpg', intelligence: 345, strength: 210, velocity: 138, specialSkills: 97, fightingSkills: 415},
+        {name: 'Робби Робертсон', imgUrl: './images/39.jpg', intelligence: 197, strength: 138, velocity: 128, specialSkills: 36, fightingSkills: 142},
+        {name: 'Стервятник', imgUrl: './images/40.jpg', intelligence: 305, strength: 109, velocity: 263, specialSkills: 148, fightingSkills: 213, special: 1},
+        {name: 'Блэйд', imgUrl: './images/41.jpg', intelligence: 83, strength: 157, velocity: 133, specialSkills: 70, fightingSkills: 349, special: 1},
+        {name: 'Кейдж', imgUrl: './images/42.jpg', intelligence: 136, strength: 227, velocity: 136, specialSkills: 73, fightingSkills: 279},
+        {name: 'Сердце', imgUrl: './images/43.jpg', intelligence: 203, strength: 278, velocity: 214, specialSkills: 306, fightingSkills: 210},
+        {name: 'Суперскрулл', imgUrl: './images/44.jpg', intelligence: 85, strength: 428, velocity: 367, specialSkills: 428, fightingSkills: 275},
+        {name: 'Кейн', imgUrl: './images/45.jpg', intelligence: 274, strength: 285, velocity: 198, specialSkills: 99, fightingSkills: 289}
      ],
      players: { // Никнеймы игроков
       player1: this.props.player1,
@@ -306,10 +321,9 @@ startGame = () => {
  render() {
     return (
     <div id="table" className="table">
-      <button onClick={() => this.props.history.push({pathname: '/results', state: this.state})}>test</button>
       <div id='competitorSide' className="table_firstPlayer">
         <div className="player_info">
-          <h1>{this.state.AI.enabled ? "Cоперник" : this.props.player1}</h1>
+          <h1>{this.state.AI.enabled ? "Cоперник" : this.state.players.player1}</h1>
           <p className="player_score">{this.state.totalScore.firstPlayer}</p>
         </div>
             <FirstPlayer stubs={this.state.cardStub} hideStub={this.toggleCardHandler} getCards={this.state.cards} cardNumber={this.state.nfc} showCard={this.state.showCard} handleCard={this.handleFPCard} checkAI={this.state.AI.enabled}/>
@@ -317,7 +331,7 @@ startGame = () => {
 
       <div className="table_secoundPlayer">
        <div className="player_info">
-         <h1>{this.state.AI.enabled ? this.props.player1 : this.props.player2}</h1>
+         <h1>{this.state.AI.enabled ? this.props.player1 : this.state.players.player2}</h1>
          <p id="secoundPlayerScore" className="player_score">{this.state.totalScore.secoundPlayer}</p>
         </div>
             <SecoundPlayer stubs={this.state.cardStub} hideStub={this.toggleCardHandler} getCards={this.state.cards} cardNumber={this.state.nfc} showCard={this.state.showCard} handleCard={this.handleSPCard} />
