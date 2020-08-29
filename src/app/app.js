@@ -44,6 +44,10 @@ class App extends Component {
         {name: 'Белый кролик', imgUrl: './images/29.jpg', intelligence: 124, strength: 99, velocity: 136, specialSkills: 72, fightingSkills: 84},
         {name: 'Существо', imgUrl: './images/30.jpg', intelligence: 142, strength: 426, velocity: 139, specialSkills: 68, fightingSkills: 346, special: 1}
      ],
+     players: { // Никнеймы игроков
+      player1: this.props.player1,
+      player2: this.props.player2
+     },
      showCard: { // Отвечает за показ карточки. Если true, то заместо заглушки будет показываться карточка из state.cards
        card1: false,
        card2: false,
@@ -106,7 +110,7 @@ class App extends Component {
        currentRound: 1,
      },
      AI: { // Определяет включен ли бот или нет
-       enabled: this.props.enableBot,
+       enabled: this.props.enableBot
      },
      statusMessage: { // Отображает статус игры и результат раунда
        message: 'Выберите карту для сражения, а затем нажмите на кнопку "Продолжить"',
@@ -180,7 +184,7 @@ class App extends Component {
 }
 
 // Проверяет выбрали ли оба игрока себе карты. Если оба значения false, то появится предупреждение и игра не запустится
-handleCheckChoosedCards = () => {
+handleCheckChoosenCards = () => {
  if (this.state.chkPlayersCards.firstPlayer == false || this.state.chkPlayersCards.secoundPlayer == false) {
    return alert("Один из игроков или оба игрока не выбрали карточки для старта игры")
  } else if (this.state.selectedCards.firstPlayer.cardId == this.state.selectedCards.secoundPlayer.cardId && this.state.rounds.currentRound !== 5 && !this.state.AI.enabled) {
@@ -284,18 +288,10 @@ startGame = () => {
   this.setState( { 
      showCard: { ...this.state.showCard, ['card'+this.state.selectedCards.firstPlayer.cardSlot]: false, ['card'+this.state.selectedCards.secoundPlayer.cardSlot]: false}, // Убирает сыгранные карты с поля
      rounds: {...this.state.rounds, currentRound: currentRound + 1 }
-  }, () => { // Сообщает результат игры. InnerHTML будет заменен в будущем
-    if (this.state.rounds.currentRound == 6 && this.state.totalScore.secoundPlayer > this.state.totalScore.firstPlayer && !this.state.AI.enabled) {
-      document.querySelector("#cardGame").innerHTML = '<div class="cardGame_gameOver"><i class="fa fa-trophy icon_win"></i><h1>' + this.props.player2 + ' победил</h1><div class="cardGame_gameOver_playersScore"><div><h3>' + this.props.player1 + '</h3><p class="result_lose">' + this.state.totalScore.firstPlayer + '</p></div><div><h3>' + this.props.player2 + '</h3><p class="result_win">' + this.state.totalScore.secoundPlayer  + '</p></div></div><a class="button--cardGame button--results" onclick="document.location.reload(true)">Новая игра</a></div>'
-    } else if (this.state.rounds.currentRound == 6 && this.state.totalScore.secoundPlayer < this.state.totalScore.firstPlayer && !this.state.AI.enabled) {
-      document.querySelector("#cardGame").innerHTML = '<div class="cardGame_gameOver"><i class="fa fa-trophy cardGame_gameOver_icon icon_win"></i><h1>' + this.props.player1 + ' победил</h1><div class="cardGame_gameOver_playersScore"><div><h3>' + this.props.player1 + '</h3><p class="result_win">' + this.state.totalScore.firstPlayer + '</p></div><div><h3>' + this.props.player2 + '</h3><p class="result_lose">' + this.state.totalScore.secoundPlayer + '</p></div></div><a class="button--cardGame button--results" onclick="document.location.reload(true)">Новая игра</a></div>'
-    } else if (this.state.rounds.currentRound == 6 && this.state.totalScore.secoundPlayer == this.state.totalScore.firstPlayer) {
-    document.querySelector("#cardGame").innerHTML = '<div class="cardGame_gameOver"><i class="fa fa-balance-scale cardGame_gameOver_icon icon_draw"></i><h1>Ничья</h1><h3>У обоих игроков одинаковое количество очков</h3><a class="button--cardGame button--results" onclick="document.location.reload(true)">Новая игра</a></div></div>'
-   } else if (this.state.rounds.currentRound == 6 && this.state.totalScore.secoundPlayer > this.state.totalScore.firstPlayer && this.state.AI.enabled) {
-    document.querySelector("#cardGame").innerHTML = '<div class="cardGame_gameOver"><i class="fa fa-trophy icon_win"></i><h1>Вы победили</h1><div class="cardGame_gameOver_playersScore"><div><h3>Противник</h3><p class="result_lose">' + this.state.totalScore.firstPlayer + '</p></div><div><h3>' + this.props.player1 + '</h3><p class="result_win">' + this.state.totalScore.secoundPlayer  + '</p></div></div><a class="button--cardGame button--results" onclick="document.location.reload(true)">Новая игра</a></div>'
-   } else if (this.state.rounds.currentRound == 6 && this.state.totalScore.secoundPlayer < this.state.totalScore.firstPlayer && this.state.AI.enabled) {
-    document.querySelector("#cardGame").innerHTML = '<div class="cardGame_gameOver"><i class="fa fa-times cardGame_gameOver_icon icon_lose"></i><h1>Соперник победил</h1><div class="cardGame_gameOver_playersScore"><div><h3>Соперник</h3><p class="result_win">' + this.state.totalScore.firstPlayer + '</p></div><div><h3>' + this.props.player1 + '</h3><p class="result_lose">' + this.state.totalScore.secoundPlayer + '</p></div></div><a class="button--cardGame button--results" onclick="document.location.reload(true)">Новая игра</a></div>'
-  }
+  }, () => { // Переводит на компонент результатов игры если раунд = 6
+    if (this.state.rounds.currentRound == 6) {
+      this.props.history.push({pathname: '/results', state: this.state})
+    }
   })
 
  // Сбрасывает значения выбранных карт на дефолтные
@@ -310,6 +306,7 @@ startGame = () => {
  render() {
     return (
     <div id="table" className="table">
+      <button onClick={() => this.props.history.push({pathname: '/results', state: this.state})}>test</button>
       <div id='competitorSide' className="table_firstPlayer">
         <div className="player_info">
           <h1>{this.state.AI.enabled ? "Cоперник" : this.props.player1}</h1>
@@ -327,7 +324,7 @@ startGame = () => {
       </div>
 
       <div className="table_battleTable">
-       <BattleTable status={this.state.statusMessage} FPcardInfo={this.state.selectedCards.firstPlayer.cardInfo} SPcardInfo={this.state.selectedCards.secoundPlayer.cardInfo} startGame={this.handleCheckChoosedCards} />
+       <BattleTable status={this.state.statusMessage} FPcardInfo={this.state.selectedCards.firstPlayer.cardInfo} SPcardInfo={this.state.selectedCards.secoundPlayer.cardInfo} startGame={this.handleCheckChoosenCards} />
      </div>
     </div>)
  }

@@ -3,6 +3,13 @@ import './scss/index.scss'
 
 import React from "react"
 import ReactDOM from "react-dom"
-import StartParams from "./app/modules/StartParams/StartParams"
+import {BrowserRouter} from 'react-router-dom'
+import StartParams from './app/modules/StartParams/StartParams'
 
-ReactDOM.render(<StartParams />, document.querySelector('#cardGame'))
+const app = (
+    <BrowserRouter>
+     <StartParams />
+    </BrowserRouter>
+)
+
+ReactDOM.render(app, document.querySelector('#cardGame'))

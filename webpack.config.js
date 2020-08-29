@@ -9,7 +9,8 @@ module.exports = {
     entry: './src/index.js',
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'dist'),
+        publicPath: '/'
     },
 
     devServer: {
@@ -17,7 +18,8 @@ module.exports = {
         compress: true,
         port: 9000,
         watchContentBase: true,
-        progress: true
+        progress: true,
+        historyApiFallback: true
     },
     
     plugins: [

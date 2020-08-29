@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react'
 import App from '../../app'
+import Results from '../../components/Results/Results'
+import {Route, Redirect, NavLink} from 'react-router-dom'
 
 class StartParams extends React.Component {
     state = {
@@ -9,7 +11,7 @@ class StartParams extends React.Component {
             player1: 'Первый игрок',
             player2: 'Второй игрок',
         },
-        launchGame: false // Если true запускать игру
+        launchGame: true // Если true запускать игру
     }
 
     handleGameChoose = (e) => { // Отвечает за обработку выбранной игры. МЕТОД ДЛЯ БУДУЩЕГО, ТАК КАК СЕЙЧАС ДОСТУПНА ТОЛЬКО ОДНА ИГРА
@@ -43,24 +45,15 @@ class StartParams extends React.Component {
 
         this.setState({
             players: {player1: e.target.id == 'playerOneName' ? e.target.value : this.state.players.player1, player2: this.state.enableBot ? 'Второй игрок' : e.target.id =='playerTwoName' ? e.target.value : this.state.players.player2} // Игрок1 = Если id вводимого поля совпадает с указанным id, то получаем данные из него, иначе оставляем никнейм без изменения. Игрок2 = Если бот включен, то поле деактивировано. Если выключено, то если id поля совпадает с  указанным id, то меняем никнейм игроку, иначе оставляем без изменения
-        })
-    }
-
-    handleStartGame = () => { // Обрабатывает запуск игры
-        if (this.state.players.player1 == "" || this.state.players.player2 == "") { // Если у одного из игроков никнейм пустой, то предупреждаем
-            alert('Никнейм одного из игроков не заполнен')
-        } else if (this.state.players.player1.length > 15 || this.state.players.player2.length > 15) { // Если у одного из игроков длинна ника больше 15 символов, то просим сократить никнейм
-            alert('Имя игрока не может превышать 15 символов')
-        } else {
-            this.setState({
-                launchGame: true
-            })
-        }
-
-        window.addEventListener('resize', () => { // Временно
-            if (window.innerWidth < 1920) {
-                alert('На данный момент игра не поддерживает оконный режим и мобильные устройства. Поддержка будет добавлена позже')
-                console.log(window.innerWidth)
+        }, () => {
+            if (this.state.players.player1 == "" || this.state.players.player2 == "") { // Если у одного из игроков никнейм пустой, то предупреждаем
+                this.setState({launchGame: false})
+            } else if (this.state.players.player1.length >= 16 || this.state.players.player2.length >= 16) { // Если у одного из игроков длинна ника больше 15 символов, то просим сократить никнейм
+                this.setState({launchGame: false})
+            } else {
+                this.setState({
+                    launchGame: true
+                })
             }
         })
     }
@@ -68,8 +61,8 @@ class StartParams extends React.Component {
     render() {
         return (
             <Fragment>
-            {this.state.launchGame ? <App game={this.state.game} enableBot={this.state.enableBot} player1={this.state.players.player1} player2={this.state.players.player2}/> : 
-            <div className="params">
+            <Route path="/setup" render={() =>
+                <div className="params">
                 <div className="params_gameInfo">
                   <h1>Matrix Cards</h1>
                   <h3>Перед началом игры выберите желаемые параметры</h3>
@@ -96,18 +89,23 @@ class StartParams extends React.Component {
                      <div className="players">
                         <span className="players_name">
                             <p>{this.state.enableBot ? 'Имя игрока' : 'Имя игрока 1 '}</p>
-                            <input type="text" id="playerOneName" defaultValue={this.state.players.player1} onChange={this.handlePlayersNicknames}></input>
+                            <input type="text" id="playerOneName" defaultValue={this.state.players.player1} onInput={this.handlePlayersNicknames}></input>
+                            <p className="players_emptyName">{this.state.players.player1 == '' ? 'Имя игрока не может быть пустым' : null}{this.state.players.player1.length >= 16 ? 'Имя не должно превышать 15 символов' : null}</p>
                         </span>
                         {!this.state.enableBot ? <span className="players_name players_name--border">
                             <p>Имя игрока 2 </p>
-                            <input type="text" id="playerTwoName" defaultValue={this.state.players.player2} onChange={this.handlePlayersNicknames}></input>
+                            <input type="text" id="playerTwoName" defaultValue={this.state.players.player2} onInput={this.handlePlayersNicknames}></input>
+                            <p className="players_emptyName">{this.state.players.player2 == '' ? 'Имя игрока не может быть пустым' : null}{this.state.players.player2.length >= 16 ? 'Имя не должно превышать 15 символов' : null}</p>
                         </span> : null}
                         
                      </div>
                     </div>
-
-                    <a className="button--cardGame button--startGame" onClick={this.handleStartGame}>Начать</a>
-                </div> }
+                    <NavLink style={this.state.launchGame ? null : {opacity: 0.5, cursor: 'not-allowed'}} exact className="button--cardGame button--startGame" to={this.state.launchGame ? '/game' : '/setup'} >Начать</NavLink>
+                </div>
+            } />
+            <Route path="/game" render={(props) => ( <App {...props} game={this.state.game} enableBot={this.state.enableBot} player1={this.state.players.player1} player2={this.state.players.player2} /> )} />
+            <Route path="/results" component={Results} />
+            <Redirect to="/setup" />
             </Fragment>
         )
     }

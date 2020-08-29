@@ -3,6 +3,7 @@
 @import './src/app/components/players/players.scss';
 @import './src/app/components/BattleTable/BattleTable.scss';
 @import './src/app/components/cards/Card.scss';
+@import './src/app/components/Results/Results.scss';
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
 @import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
@@ -52,6 +53,7 @@ body {
         font-family: 'Open Sans';
         font-weight: 600;
         text-align: center;
+        text-decoration: none;
     }
 
     &--results {
@@ -59,86 +61,5 @@ body {
         margin: 15px auto;
         font-size: 16px;
         color: #e4e4e6;
-    }
-}
-
-.cardGame {
-
-    &_gameOver {
-        text-align: center;
-        border: 1px solid #323639;
-        border-radius: 8px;
-        display: block;
-        width: 420px;
-        margin: auto;
-        padding: 10px 25px;
-
-        &_playersScore {
-            display: flex;
-            justify-content: center;
-
-            &>div {
-                width: 120px;
-                color: white;
-                border: 1px solid #323639;
-                margin: 20px 15px;
-                border-radius: 8px;
-
-                &>p {
-                    font-size: 30px !important;
-                    margin: 12px;
-                }
-
-                &>h3 {
-                    letter-spacing: 0.3px;
-                    font-weight: 500;
-                }
-            }
-        }
-
-        &>i {
-            font-size: 70px;
-            border: 1px solid #323639;
-            width: 120px;
-            border-radius: 180px;
-            height: 120px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 10px auto;
-        }
-
-        &>h1 {
-            color: #e4e4e6;
-            font-size: 40px;
-        }
-
-        &>h3 {
-            color: #b6b6b8;
-        }
-    }
-}
-
-.icon {
-    &_win {
-        color: #e2d100;
-    }
-
-    &_lose {
-        color: #fff;
-    }
-
-    &_draw {
-        color: #fff;
-    }
-}
-
-.result {
-    &_win {
-        color: green;
-    }
-
-    &_lose {
-        color: red;
     }
 }

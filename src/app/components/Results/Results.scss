@@ -1,0 +1,81 @@
+.cardGame {
+
+    &_gameOver {
+        text-align: center;
+        border-radius: 8px;
+        display: block;
+        width: 420px;
+        margin: auto;
+        padding: 10px 25px;
+        box-shadow: 0px 1px 10px rgb(26, 28, 29) !important;
+        background: #1f2225 !important;
+
+        &_playersScore {
+            display: flex;
+            justify-content: center;
+
+            &>div {
+                width: 120px;
+                color: white;
+                border: 1px solid #323639;
+                margin: 20px 15px;
+                border-radius: 8px;
+
+                &>p {
+                    font-size: 30px !important;
+                    margin: 12px;
+                }
+
+                &>h3 {
+                    letter-spacing: 0.3px;
+                    font-weight: 500;
+                }
+            }
+        }
+
+        &>i {
+            font-size: 70px;
+            border: 1px solid #323639;
+            width: 120px;
+            border-radius: 180px;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px auto;
+        }
+
+        &>h1 {
+            color: #e4e4e6;
+            font-size: 40px;
+        }
+
+        &>h3 {
+            color: #b6b6b8;
+        }
+    }
+}
+
+.icon {
+    &_win {
+        color: #e2d100;
+    }
+
+    &_lose {
+        color: #fff;
+    }
+
+    &_draw {
+        color: #fff;
+    }
+}
+
+.result {
+    &_win {
+        color: green;
+    }
+
+    &_lose {
+        color: red;
+    }
+}
