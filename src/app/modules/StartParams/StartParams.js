@@ -103,9 +103,9 @@ class StartParams extends React.Component {
                     <NavLink style={this.state.launchGame ? null : {opacity: 0.5, cursor: 'not-allowed'}} exact className="button--cardGame button--startGame" to={this.state.launchGame ? '/game' : '/setup'} >Начать</NavLink>
                 </div>
             } />
-            <Route path="/MatrixCards/game" render={(props) => ( <App {...props} game={this.state.game} enableBot={this.state.enableBot} player1={this.state.players.player1} player2={this.state.players.player2} /> )} />
-            <Route path="/MatrixCards/results" component={Results} />
-            <Redirect to="/MatrixCards/setup" />
+            <Route path="/game" render={(props) => ( <App {...props} game={this.state.game} enableBot={this.state.enableBot} player1={this.state.players.player1} player2={this.state.players.player2} /> )} />
+            <Route path="/results" component={Results} />
+            <Redirect to="/setup" />
             </Fragment>
         )
     }
