@@ -70,8 +70,8 @@ class StartParams extends React.Component {
                     <div className="params_games">
                     <h3>Выберите игру</h3>
                     <div className="games">
-                        <p id="SMCards" className={this.state.game == 'SMCards' ? 'games_item games_item--selected' : 'games_item'} onClick={this.handleGameChoose} style={{backgroundImage: 'url(./images/games/sm.jpg)'}}>Человек Паук. Герои и Злодеи</p>
-                        <p id="TMNTCards" className={this.state.game == 'TMNTCards' ? "games_item games_item--selected" : 'games_item'} onClick={this.handleGameChoose} style={{backgroundImage: 'url(./images/games/tmnt.jpg)'}}>Черепашки Ниндзя. Боевая четверка</p>
+                        <p id="SMCards" className={this.state.game == 'SMCards' ? 'games_item games_item--selected' : 'games_item'} onClick={this.handleGameChoose} style={{backgroundImage: 'url(MatrixCards/images/games/sm.jpg)'}}>Человек Паук. Герои и Злодеи</p>
+                        <p id="TMNTCards" className={this.state.game == 'TMNTCards' ? "games_item games_item--selected" : 'games_item'} onClick={this.handleGameChoose} style={{backgroundImage: 'url(MatrixCards/images/games/tmnt.jpg)'}}>Черепашки Ниндзя. Боевая четверка</p>
                         <p id="otherCards" className="games_item games_item--moreGamesSoon">Больше игр в будущем</p>
                     </div>
                     </div>
@@ -103,9 +103,9 @@ class StartParams extends React.Component {
                     <NavLink style={this.state.launchGame ? null : {opacity: 0.5, cursor: 'not-allowed'}} exact className="button--cardGame button--startGame" to={this.state.launchGame ? '/game' : '/setup'} >Начать</NavLink>
                 </div>
             } />
-            <Route path="/game" render={(props) => ( <App {...props} game={this.state.game} enableBot={this.state.enableBot} player1={this.state.players.player1} player2={this.state.players.player2} /> )} />
-            <Route path="/results" component={Results} />
-            <Redirect to="/setup" />
+            <Route path="/MatrixCards/game" render={(props) => ( <App {...props} game={this.state.game} enableBot={this.state.enableBot} player1={this.state.players.player1} player2={this.state.players.player2} /> )} />
+            <Route path="/MatrixCards/results" component={Results} />
+            <Redirect to="/MatrixCards/setup" />
             </Fragment>
         )
     }
