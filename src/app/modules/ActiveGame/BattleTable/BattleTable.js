@@ -1,4 +1,5 @@
 import React from 'react'
+import './BattleTable.scss'
 
 const BattleTable = props => (
     <React.Fragment>
@@ -23,7 +24,7 @@ const BattleTable = props => (
        </div>
     
        <div className="interactive-area">
-        <a className="button--cardGame" onClick={props.startGame}>Продолжить</a>
+        <a className="button" onClick={props.startGame}>Продолжить</a>
        </div>
 
        <div className="card_ready">

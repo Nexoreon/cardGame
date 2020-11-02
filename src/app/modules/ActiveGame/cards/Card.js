@@ -1,8 +1,7 @@
 import React from 'react'
+import './Card.scss'
 
-const Card = props => {
-    
-    return (
+const Card = props => (
         <div onClick={props.thisCard} className="card" id="card">
         <div className="card_img">
          <img src={props.imgUrl} />
@@ -31,7 +30,6 @@ const Card = props => {
            {props.special == 1 ? <div className="info_skill info_skill--special"><h3>Особая</h3></div> : <div className="info_skill info_skill--special"><h3>Обычная</h3></div>}
         </div>
        </div>
-    )
-}
+)
 
 export default Card

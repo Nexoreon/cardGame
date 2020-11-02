@@ -1,0 +1,65 @@
+@import '../../../scss/assets/_animations.scss';
+
+.PopupWindow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 200;
+    background: rgba(0, 0, 0, .8);
+    width: 100%;
+    height: 100%;
+
+    &_Container {
+        background: #292c31;
+        min-width: 20%;
+        max-width: 60%;
+        border-radius: 8px;
+
+        &--openAnim {
+            animation: popup-scale .3s;
+        }
+
+        &--closeAnim {
+            animation: popup-scale-close .3s;
+        }
+    }
+
+    &_Content {
+        padding: 0 14px;
+    }
+
+    &_Header {
+        display: flex;
+        align-items: center;
+        color: #fff;
+
+        & h4 {
+            margin: 10px 0;
+            letter-spacing: .5px;
+        }
+
+        & i {
+            margin-left: auto;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    }
+
+    &_ErrorText {
+        font-size: 15px;
+        margin: 3px 0;
+
+        & p {
+            margin: 5px 0;
+        }
+    }
+
+    &--openAnim {
+        animation: popup-bg .2s;
+    }
+
+    &--closeAnim {
+        animation: popup-bg-close .2s;
+    }
+}
