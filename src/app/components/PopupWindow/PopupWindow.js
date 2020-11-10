@@ -3,8 +3,8 @@ import './PopupWindow.scss'
 
 class PopupWindow extends React.Component {
     state = {
-        openAnim: true,
-        closeAnim: false
+      openAnim: true,
+      closeAnim: false
     }
 
     closeAnim = () => {
@@ -20,10 +20,10 @@ class PopupWindow extends React.Component {
         const closeAnim = this.state.closeAnim
         const popupCls = ['PopupWindow', openAnim ? 'PopupWindow--openAnim' : '', closeAnim ? 'PopupWindow--closeAnim' : '']
         const containerCls =['PopupWindow_Container', openAnim ? 'PopupWindow_Container--openAnim' : '', closeAnim ? 'PopupWindow_Container--closeAnim' : '']
-
+// console.log(this.props.cButtonTitle, this.props.cFunc)
         return(
             <div className={popupCls.join(' ')} >
-              <div className={containerCls.join(' ')} onAnimationEnd={() => this.setState({ openAnim: false})}>
+              <div className={containerCls.join(' ')} onAnimationEnd={() => this.setState({ openAnim: false, closeAnim: false})}>
                 <div className="PopupWindow_Content">
                   <div className="PopupWindow_Header">
                    <h4>{this.props.title}</h4> 
@@ -33,7 +33,7 @@ class PopupWindow extends React.Component {
                 ? <div className="PopupWindow_ErrorText"><p>{this.props.errorText}</p></div>
                 : this.props.children}
                  </div>
-                 {this.props.errorText ? <a className="button button--error" onClick={this.closeAnim}>Закрыть</a> : null}
+                 {this.props.errorText ? <a className="button button--error" onClick={this.props.cFunc ? this.props.cFunc : this.closeAnim}>{this.props.cButtonTitle ? this.props.cButtonTitle : 'Закрыть'}</a> : null}
                 </div>
                 
             </div>

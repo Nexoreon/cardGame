@@ -1,12 +1,13 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import './Results.scss'
 
 const Results = props => {
     const data = props.location.state // Быстрый доступ к полученному state
-    const players = data.players // state.players - Никнеймы игроков
+    const players = props.players // state.players - Никнеймы игроков ///////////////////////////////////////////
     const score = data.totalScore // state.totalScore - Счет матча
 
-    if (!data.AI.enabled && score.firstPlayer > score.secoundPlayer) { // Если у игрока 2 меньше очков чем у игрока 1, то...
+    if (!props.bot && score.firstPlayer > score.secoundPlayer) { // Если у игрока 2 меньше очков чем у игрока 1, то...
         return(
         <div className="cardGame_container">
             <div className="cardGame_blur" />
@@ -23,12 +24,12 @@ const Results = props => {
                     <p className="result_lose">{score.secoundPlayer}</p>
                  </div>
              </div>
-            <a className="button button--results" onClick={() => props.history.push({pathname: '/setup'})}>Новая игра</a>
+             <Link className="button button--results" to="/setup">Новая игра</Link>
             </div> 
         </div>
          
         )
-    } else if (!data.AI.enabled && score.firstPlayer < score.secoundPlayer) { // Если у игрока 1 меньше очков чем у игрока 2, то...
+    } else if (!props.bot && score.firstPlayer < score.secoundPlayer) { // Если у игрока 1 меньше очков чем у игрока 2, то...
         return(
         <div className="cardGame_container">
             <div className="cardGame_blur" />
@@ -45,7 +46,7 @@ const Results = props => {
                     <p className="result_win">{score.secoundPlayer}</p>
                 </div>
             </div>
-            <a className="button button--results" onClick={() => props.history.push({pathname: '/setup'})}>Новая игра</a>
+            <Link className="button button--results" to="/setup">Новая игра</Link>
             </div>
         </div>
          )
@@ -57,12 +58,12 @@ const Results = props => {
              <i className="fa fa-balance-scale cardGame_gameOver_icon icon_draw"></i>
              <h1>Ничья</h1>
              <h3>У обоих игроков одинаковое количество очков</h3>
-             <a className="button button--results" onClick={() => props.history.push({pathname: '/setup'})}>Новая игра</a>
+             <Link className="button button--results" to="/setup">Новая игра</Link>
            </div> 
         </div>
            
         )
-    } else if (data.AI.enabled && score.firstPlayer < score.secoundPlayer) { // Если игрок имеет больше очков чем бот, то...
+    } else if (props.bot && score.firstPlayer < score.secoundPlayer) { // Если игрок имеет больше очков чем бот, то...
         return(
             <div className="cardGame_container">
             <div className="cardGame_blur" />
@@ -79,12 +80,12 @@ const Results = props => {
                         <p className="result_lose">{score.firstPlayer}</p>
                      </div>
                  </div>
-                <a className="button button--results" onClick={() => props.history.push({pathname: '/setup'})}>Новая игра</a>
+                 <Link className="button button--results" to="/setup">Новая игра</Link>
              </div> 
         </div>
              
         )
-    } else if (data.AI.enabled && score.firstPlayer > score.secoundPlayer) { // Если игрок имеет меньше очков чем бот, то...
+    } else if (props.bot && score.firstPlayer > score.secoundPlayer) { // Если игрок имеет меньше очков чем бот, то...
         return(
             <div className="cardGame_container">
             <div className="cardGame_blur" />
@@ -101,7 +102,7 @@ const Results = props => {
                         <p className="result_win">{score.firstPlayer}</p>
                      </div>
                  </div>
-                <a className="button button--results" onClick={() => props.history.push({pathname: '/setup'})}>Новая игра</a>
+                 <Link className="button button--results" to="/setup">Новая игра</Link>
              </div> 
         </div>
              

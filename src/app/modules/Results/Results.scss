@@ -30,7 +30,7 @@
         background: #22252a;
         z-index: 150;
         position: absolute;
-        animation: popup .2s;
+        animation: popup-scale .2s;
 
         &_playersScore {
             display: flex;

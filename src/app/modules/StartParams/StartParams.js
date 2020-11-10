@@ -6,17 +6,25 @@ import Modes from './Modes/Modes'
 import Nicknames from './Nicknames/Nicknames'
 import About from './About/About'
 
-import PopupWindow from '../../components/PopupWindow/PopupWindow'
-
 const StartParams = props => {
-        let btnCls = ['button', 'button--startGame']
+    let btnCls = ['button', 'button--startGame']
+    if (!props.launchGame) {
+        btnCls.push('button--disabled')
+    }
+
+   const checkValidation = () => { // If validation failed, calling popup window with error message
         if (!props.launchGame) {
-            btnCls.push('button--disabled')
+            props.handlePopupWindow(1)
         }
+    }
 
         return(
             <div className="params">
                     <div className="params_blur" />
+
+                    <div className="params_about">
+                        <About />
+                    </div>
 
                     <div className="params_container">
                         <div className="params_gameInfo">
@@ -28,19 +36,11 @@ const StartParams = props => {
                            <Games onClick={props.handleGameChoose} chosenGame={props.game}/>
                            <Modes onClick={props.handleModeChoose} botStatus={props.enableBot} />
                            <Nicknames player1N={props.player1} player2N={props.player2} onInput={props.handlePlayersNicknames} enableBot={props.enableBot} />                   
-                           <Link className={btnCls.join(' ')} to={props.launchGame ? '/game' : '#'} onClick={props.checkValidation}>Начать</Link>
+                           <Link className={btnCls.join(' ')} to={props.launchGame ? '/game' : '#'} onClick={checkValidation}>Начать</Link>
                         </div>
-                        
                     </div>
-                    <div className="params_about">
-                        <About />
-                    </div>
-
-                    {props.popupWindow && !props.launchGame ? <PopupWindow title="Ошибка" errorText="Проверьте правильность заполнения полей ввода" onClick={props.handlePopupWindow} /> : null}
-                    {props.popupWindow && props.game == 'TMNTCards' ? <PopupWindow title="Недоступно" errorText="Данная игра появится в следующих обновлениях"  onClick={props.handlePopupWindow} /> : null}
                 </div>
         )
-
 }
 
 export default StartParams

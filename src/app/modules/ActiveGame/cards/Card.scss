@@ -1,3 +1,6 @@
+@import '../../../../scss/assets/animations';
+@import '../../../../scss/assets/variables';
+
 .cards {
     display: flex;
     justify-content: center;
@@ -8,41 +11,142 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    transition: transform 0.3s;
+    transition: transform .3s;
+    cursor: pointer;
 
     &:hover {
-        transform: scale(1.2);
-        transition: transform 0.3s ease-out;
+        transform: scale(1.25);
+        transition: transform .2s ease-in;
+    }
+
+    // &--increased,
+    // &--increased:hover {
+    //     transform: scale(1.5);
+    // }
+
+    &_showInfo {
+        display: none;
+        flex-direction: column;
+        right: 0;
+        top: 14px;
+        position: absolute;
+        z-index: 150;
+
+        &_infoBtn,
+        &_increaseBtn {
+            color: #fff;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            border-radius: 32px;
+            transition: .5s;
+            background: rgba(0, 0, 0, .6);
+            text-align: center;
+            margin: 3px;
+            border: 1px solid transparent;
+            box-sizing: border-box;
+
+            &:hover {
+                background: #1a73e8;
+                color: #fff;
+                box-shadow: 0px 0px 3px 0px #000;
+
+                & i {
+                    text-shadow: 0 0 1px black;
+                }
+            }
+
+            &--active {
+                border: 1px solid #1a73e8;
+                box-sizing: border-box;
+                color: #1a73e8;
+            }
+        }
+
+        &_increaseBtn:hover {
+            background: unset;
+        }
+
+
+    }
+
+    &_cardCheck {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        z-index: 200;
+        background: $overlayBg;
+        transition: .2s;
+        border-radius: 8px;
+
+        &--openAnim {
+            animation: show-card-info .6s;
+        }
+
+        &--closeAnim {
+            animation: popup-bg-close .6s;
+        }
+
+        & p {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            border: 5px solid #00b900;
+            color: #00b900;
+            border-radius: 32px;
+            width: 50px;
+            height: 50px;
+            margin: 0;
+        }
+
+        & h3 {
+            color: #fff;
+            font-size: 25px;
+            margin-top: 8px;
+        }
     }
 
     &_info {
         display: none;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-wrap: wrap;
+        color: #fff;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, .5);
+        border-radius: 8px;
+
+        &_container {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            flex-wrap: wrap;
+            width: 100%;
+            height: 100%;
+            padding-right: 20px;
+
+            &>.info_skill>h3 {
+                font-size: 11px;
+            }
+        }
 
         &:hover>.card_img {
             filter: blur(3px);
         }
 
-        & > .info_skill > h3 {
-            font-size: 11px;
-        }
 
-    }
-
-    &_ready {
-        display: flex;
-        margin: 10px 0;
-
-        &:first-child {
-            justify-content: flex-end;
-        }
-
-        &:last-child {
-            justify-content: flex-start;
-        }
     }
 
     &_img {
         height: 300px;
+        transition: .2s;
 
         &>img {
             border-radius: 8px;
@@ -51,33 +155,44 @@
         }
     }
 
-    &:hover>.card_img {
-        filter: brightness(0.55);
-        transition: filter 0.5s;
-
-        &--battle {
-            filter: none;
-        }
+    &:hover>.card_showInfo {
+        display: flex;
+        animation: show-card-info .3s
     }
 
     &:hover>.card_info {
         display: flex;
-        flex-wrap: wrap;
-        color: #fff;
-        position: absolute;
-        width: -webkit-fill-available;
+        animation: show-card-info .2s;
     }
 
     &_cover {
         width: 200px;
         height: 300px;
         margin: 20px 30px;
-        border-radius: 8px;
-    }
+        cursor: pointer;
 
-    &_chosen:hover {
-        transform: none;
-        cursor: default;
+        &--AI {
+            cursor: not-allowed;
+
+            & img:active {
+                transform: scale(1);
+            }
+        }
+
+        & img {
+            border-radius: 8px;
+            transition: .3s;
+
+            &:active {
+                transform: scale(.5);
+            }
+        }
+
+        &_cover>img,
+        .card {
+            cursor: pointer;
+            box-shadow: 0 0 10px 0 rgba(0, 0, 0, .2), 0 2px 10px 0 rgba(0, 0, 0, .2);
+        }
     }
 }
 
@@ -86,48 +201,10 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    background: rgba(0, 0, 0, 0.5);
     border-radius: 8px;
     width: 70px;
-    margin: 13px;
     height: 72px;
-
-    &--battle {
-        background: none;
-        padding: 3px;
-        border: 1px solid #323639;
-        padding: 5px;
-        height: 42px;
-        width: 75px;
-        position: relative;
-
-        &:first-child {
-            width: 100%;
-            height: 30px;
-        }
-
-        &:first-child,
-        :last-child {
-            position: relative;
-            top: 0;
-            font-weight: 600;
-        }
-
-        &>p {
-            color: #a6a7a7;
-            font-weight: 600;
-        }
-
-        &>h3 {
-            font-size: 13px;
-            color: #969696;
-            position: absolute;
-            top: -10px;
-            padding: 0 5px;
-            background: #22252a;
-            margin: unset;
-        }
-    }
+    background: rgba(0, 0, 0, .5);
 
     &>h3 {
         letter-spacing: 0.3px;
@@ -137,21 +214,12 @@
         font-weight: 600;
     }
 
-    &>p, &>h3 {
+    &>p,
+    &>h3 {
         margin: 0;
     }
-}
 
-.current_card_info {
-    width: 230px;
-    flex-wrap: wrap;
-    height: fit-content;
-    align-self: center;
-    color: #fff;
-}
-
-.card_cover,
-.card {
-    cursor: pointer;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, .2), 0 2px 10px 0 rgba(0, 0, 0, .2);
+    &--special {
+        font-size: 10px;
+    }
 }

@@ -1,0 +1,22 @@
+.table {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    background: url(https://cdn.hipwallpaper.com/i/71/67/bG8fS9.jpg);
+
+    &_blurAnim {
+        animation: remove-blur .2s;
+    }
+
+    &_playersArea {
+        width: 70%;
+    }
+
+    &_battleTable {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 30%;
+    }
+}

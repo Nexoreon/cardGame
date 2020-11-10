@@ -5,7 +5,7 @@ const Games = props => {
    const renderGamesList = () => {
         const games = [
             {name: 'Человек Паук. Герои и Злодеи', id: 'SMCards', img: 'url(./images/games/sm.jpg)'},
-            {name: 'Черепашки Ниндзя. Боевая четвёрка', id: 'TMNTCards', img: 'url(./images/games/tmnt.jpg)'}
+            {name: 'Гвинт: Ведьмак. Карточная игра', id: 'gwent', img: 'url(./images/games/gwent.jpg)'}
         ]
     
         return games.map((game, index) => {

@@ -1,4 +1,3 @@
-import css from './index.css'
 import './scss/index.scss'
 
 import React from "react"
@@ -12,4 +11,4 @@ const app = (
     </BrowserRouter>
 )
 
-ReactDOM.render(app, document.querySelector('#cardGame'))
+ReactDOM.render(app, document.querySelector('#root'))

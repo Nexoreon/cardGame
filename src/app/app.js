@@ -1,35 +1,38 @@
 import React from 'react'
 import '../scss/index.scss'
 import {Route, Redirect, Switch} from 'react-router-dom'
+import Layout from '../app/components/Layout/Layout'
 import ActiveGame from './modules/ActiveGame/ActiveGame'
 import Results from './modules/Results/Results'
 import StartParams from './modules/StartParams/StartParams'
+import PopupWindow from './components/PopupWindow/PopupWindow'
 
 class App extends React.Component {
     state = {
-        popupWindow: false, // Всплывающее окно
-        game: 'SMCards', // Выбранная игра
-        enableBot: false, // Режим игры с ботом
-        players: { // Никнеймы игроков
+        popup: { // Popup window
+            enabled: false,
+            errorNum: null
+        },
+        game: 'SMCards', // Selected game
+        enableBot: false, // Mode to play with a bot
+        players: { // Players nicknames
             player1: 'Первый игрок',
             player2: 'Второй игрок',
         },
-        launchGame: true // Если true запускать игру
+        launchGame: true // if true, laucn the game
     }
 
-    handleGameChoose = (e) => { // Отвечает за обработку выбранной игры. МЕТОД ДЛЯ БУДУЩЕГО, ТАК КАК СЕЙЧАС ДОСТУПНА ТОЛЬКО ОДНА ИГРА
+    handleGameChoose = (e) => { //  Handles game selection. Currently been used as stub
         this.setState({
             game: e.target.id
         }, () => {
-            if (this.state.game == 'TMNTCards') {
-                this.setState({
-                    popupWindow: true
-                })
+            if (this.state.game == 'gwent') {
+                this.handlePopupWindow(2)
             }
         })
     }
 
-    handleModeChoose = (e) => { // Обрабатывает режим игры. Если enableBot = true = бот включен
+    handleModeChoose = (e) => { // Handles game mode selection. if true, bot is going to be enabled
         if (e.target.id == 'twoPlayers') {
             this.setState({
               enableBot: false
@@ -41,7 +44,7 @@ class App extends React.Component {
         }
     }
 
-    handlePlayersNicknames = (e) => { // Обрабатывает никнеймы игроков
+    handlePlayersNicknames = (e) => { // Handles players nicknames
         this.setState({
             players: {player1: e.target.id == 'playerOneName' ? e.target.value : this.state.players.player1, player2: this.state.enableBot ? 'Второй игрок' : e.target.id =='playerTwoName' ? e.target.value : this.state.players.player2} // Игрок1 = Если id вводимого поля совпадает с указанным id, то получаем данные из него, иначе оставляем никнейм без изменения. Игрок2 = Если бот включен, то поле деактивировано. Если выключено, то если id поля совпадает с  указанным id, то меняем никнейм игроку, иначе оставляем без изменения
         }, () => {
@@ -59,34 +62,69 @@ class App extends React.Component {
         })
     }
 
-    handlePopupWindow = () => { // Обрабатывает закрытие всплывающего окна
+    handlePopupWindow = (erNum) => { // Handles popup window opening and closing
         this.setState({
-            popupWindow: !this.state.popupWindow,
+            popup: {enabled: !this.state.popup.enabled, errorNum: erNum == undefined ? null : erNum}
         }, () => {
-            if (this.state.game == 'TMNTCards') {
+            if (this.state.game == 'gwent') {
                 this.setState({
-                    game: 'SMCards'
+                    game: this.state.popup.errorNum !== null ? this.state.game : 'SMCards'
                 })
             }
         })
     }
 
-    checkValidation = () => { // Если при нажатие кнопки валидация была провалена, то выводим пользователю сообщение с ошибкой
-        if (!this.state.launchGame) {
-            this.setState({
-                popupWindow: true
-            })
-        }
+    renderErrors = () => { // If state.popup.enabled is true, find and return error message into popup window
+        const errorsList = [
+            {title: 'Невозможно запустить', message: 'Проверьте правильность заполнения поля ввода', condition: this.state.popup.errorNum == 1},
+            {title: 'Игра недоступна', message: 'Данная игра появится в следующих обновлениях', condition: this.state.popup.errorNum == 2},
+            {title: 'Карта не выбрана', message: 'Один из игроков или оба игрока не выбрали карту для этого раунда', condition: this.state.popup.errorNum == 3 },
+            {title: 'Карта уже выбрана', message: 'Невозможно изменить карту после подтверждения выбора. Нажмите кнопку "Продолжить" для запуска игры', condition: this.state.popup.errorNum == 4},
+            {title: 'Невозможно открыть все карточки', message: 'Открыть все карточки нажатием этой кнопки можно только в первом раунде', condition: this.state.popup.errorNum == 5},
+            {title: 'Карточки уже открыты', message: 'Все карточки этого игрока уже были открыты ранее', condition: this.state.popup.errorNum == 6},
+            {title: 'Функция недоступна', message: 'Эта функция появится в будущих обновлениях', condition: this.state.popup.errorNum == 7}
+        ]
+
+        return errorsList.filter(error => error.condition).map((error, index) => {
+            return <PopupWindow key={index} title={error.title} errorText={error.message} onClick={this.handlePopupWindow} cButtonTitle={error.cButtonTitle} cFunc={error.cFunc} />
+        })
     }
 
     render() {
         return (
-            <Switch>
-                <Route path="/setup" render={props => ( <StartParams {...props} handlePlayersNicknames={this.handlePlayersNicknames} handleModeChoose={this.handleModeChoose} player1={this.state.players.player1} player2={this.state.players.player2} enableBot={this.state.enableBot} handleGameChoose={this.handleGameChoose} game={this.state.game} launchGame={this.state.launchGame} handlePopupWindow={this.handlePopupWindow} checkValidation={this.checkValidation} popupWindow={this.state.popupWindow} /> )} />
-                <Route path="/game" render={props => ( <ActiveGame {...props} player1={this.state.players.player1} player2={this.state.players.player2} enableBot={this.state.enableBot} /> )} />
-                <Route path="/results" component={Results} />
-                <Redirect to="/setup" />
-            </Switch>
+            <Layout>
+                <Switch>
+                    <Route path="/setup" render={props => ( <StartParams {...props} 
+                    handlePlayersNicknames={this.handlePlayersNicknames} 
+                    handleModeChoose={this.handleModeChoose} 
+                    player1={this.state.players.player1} 
+                    player2={this.state.players.player2} 
+                    enableBot={this.state.enableBot} 
+                    handleGameChoose={this.handleGameChoose} 
+                    game={this.state.game} 
+                    launchGame={this.state.launchGame} 
+                    handlePopupWindow={this.handlePopupWindow} 
+                    checkValidation={this.checkValidation} 
+                    errorNum={this.state.popup.errorNum} /> )} 
+                    />
+
+                    <Route path="/game" render={props => ( <ActiveGame {...props} 
+                    player1={this.state.players.player1} 
+                    player2={this.state.players.player2} 
+                    enableBot={this.state.enableBot} 
+                    errorNum={this.state.popup.errorNum}
+                    handlePopupWindow={this.handlePopupWindow} /> )} 
+                    />
+
+                    <Route path="/results" render={props => ( <Results {...props} 
+                    players={this.state.players} 
+                    bot={this.state.enableBot} /> )} 
+                    />
+
+                    <Redirect to="/setup" />
+                </Switch>
+                {this.state.popup.enabled ? this.renderErrors() : null}
+            </Layout>
         )
     }
 }

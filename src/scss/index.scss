@@ -3,6 +3,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
 @import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
+html {
+    height: 100%;
+}
+
 body {
     font-family: 'Open Sans';
     background: $bgColor;
@@ -11,27 +15,21 @@ body {
     margin: 0;
 }
 
-.cardGame_Content {
+h1 {
+    font-size: $mainSize;
+    font-weight: $fontWeight;
+    color: #fff;
+}
+
+.root {
+    height: 100%;
+    width: 100%;
+}
+
+.App {
     display: flex;
     height: 100%;
     width: 100%;
-    position: absolute;
-}
-
-.table {
-    display: grid;
-    grid-template-columns: 70% 30%;
-    grid-template-rows: 50% 50%;
-    grid-template-areas:
-        'FirstPlayer BattleTable'
-        'SecoundPlayer BattleTable';
-    height: 100%;
-    width: 100%;
-    background: url(https://cdn.hipwallpaper.com/i/71/67/bG8fS9.jpg);
-
-    &_blurAnim {
-        animation: remove-blur .2s;
-    }
 }
 
 .button {
@@ -52,12 +50,17 @@ body {
     font-weight: 600;
     text-align: center;
     text-decoration: none;
+    transition: .2s;
 
     &--results {
         background: none;
         margin: 15px auto;
         font-size: 16px;
         color: #e4e4e6;
+    }
+
+    &:active {
+        transform: scale(.95);
     }
 
     &--disabled {
@@ -72,5 +75,9 @@ body {
         border-radius: 0 0 6px 6px;
         background: none;
         border-top: 1px solid #373c44;
+
+        &:active {
+            transform: unset;
+        }
     }
 }
