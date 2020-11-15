@@ -1,12 +1,11 @@
-@import '/variables.scss';
-@import './src/app/modules/StartParams/StartParams.scss';
-@import './src/app/components/players/players.scss';
-@import './src/app/components/BattleTable/BattleTable.scss';
-@import './src/app/components/cards/Card.scss';
-@import './src/app/components/Results/Results.scss';
-
+@import './assets/_variables.scss';
+@import './assets/_animations.scss';
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
 @import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+html {
+    height: 100%;
+}
 
 body {
     font-family: 'Open Sans';
@@ -16,50 +15,69 @@ body {
     margin: 0;
 }
 
-.cardGame_Content {
-    display: flex;
-    height: 100%;
-    width: 100%;
-    position: absolute;
+h1 {
+    font-size: $mainSize;
+    font-weight: $fontWeight;
+    color: #fff;
 }
 
-.table {
-    display: grid;
-    grid-template-columns: 70% 30%;
-    grid-template-rows: 50% 50%;
-    grid-template-areas:
-        'FirstPlayer BattleTable'
-        'SecoundPlayer BattleTable';
+.root {
+    height: 100%;
+    width: 100%;
+}
+
+.App {
+    display: flex;
     height: 100%;
     width: 100%;
 }
 
 .button {
-
-    &--cardGame {
-        align-self: center;
-        width: 100px;
-        background: #1a73e8;
-        color: #ffffff;
-        display: block;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        line-height: 40px;
-        padding: 0 15px;
-        border-radius: 4px;
-        letter-spacing: 0.3px;
-        font-size: .825rem;
-        cursor: pointer;
-        font-family: 'Open Sans';
-        font-weight: 600;
-        text-align: center;
-        text-decoration: none;
-    }
+    align-self: center;
+    width: 100px;
+    background: #1a73e8;
+    color: #ffffff;
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    line-height: 40px;
+    padding: 0 15px;
+    border-radius: 4px;
+    letter-spacing: 0.3px;
+    font-size: .825rem;
+    cursor: pointer;
+    font-family: 'Open Sans';
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    transition: .2s;
 
     &--results {
         background: none;
         margin: 15px auto;
         font-size: 16px;
         color: #e4e4e6;
+    }
+
+    &:active {
+        transform: scale(.95);
+    }
+
+    &--disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    &--error {
+        width: 100%;
+        margin-top: 20px;
+        padding: 0;
+        border-radius: 0 0 6px 6px;
+        background: none;
+        border-top: 1px solid #373c44;
+
+        &:active {
+            transform: unset;
+        }
     }
 }

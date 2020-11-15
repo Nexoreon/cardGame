@@ -1,15 +1,14 @@
-import css from './index.css'
 import './scss/index.scss'
 
 import React from "react"
 import ReactDOM from "react-dom"
 import {BrowserRouter} from 'react-router-dom'
-import StartParams from './app/modules/StartParams/StartParams'
+import App from './app/App'
 
 const app = (
-    <BrowserRouter>
-     <StartParams />
+    <BrowserRouter basename={'/MatrixCards/'}>
+     <App />
     </BrowserRouter>
 )
 
-ReactDOM.render(app, document.querySelector('#cardGame'))
+ReactDOM.render(app, document.querySelector('#root'))

@@ -1,5 +1,24 @@
 .cardGame {
 
+    &_container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        z-index: 50;
+        position: relative;
+    }
+
+    &_blur {
+        background: url(https://cdn.hipwallpaper.com/i/71/67/bG8fS9.jpg);
+        z-index: 100;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        filter: blur(15px);
+        animation: add-blur .2s;
+    }
+
     &_gameOver {
         text-align: center;
         border-radius: 8px;
@@ -7,8 +26,11 @@
         width: 420px;
         margin: auto;
         padding: 10px 25px;
-        box-shadow: 0px 1px 10px rgb(26, 28, 29) !important;
-        background: #1f2225 !important;
+        box-shadow: 0px 1px 3px #1a1c1d;
+        background: #22252a;
+        z-index: 150;
+        position: absolute;
+        animation: popup-scale .2s;
 
         &_playersScore {
             display: flex;
@@ -22,7 +44,7 @@
                 border-radius: 8px;
 
                 &>p {
-                    font-size: 30px !important;
+                    font-size: 30px;
                     margin: 12px;
                 }
 
