@@ -17,7 +17,7 @@ const BattleTable = props => (
     intelligence={props.FPcardInfo.intelligence} 
     strength={props.FPcardInfo.strength} 
     velocity={props.FPcardInfo.velocity} 
-    specialSkills={props.FPcardInfo.velocity} 
+    specialSkills={props.FPcardInfo.specialSkills} 
     fightingSkills={props.FPcardInfo.fightingSkills} 
     special={props.FPcardInfo.special} 
     />
@@ -32,7 +32,7 @@ const BattleTable = props => (
     intelligence={props.SPcardInfo.intelligence} 
     strength={props.SPcardInfo.strength} 
     velocity={props.SPcardInfo.velocity} 
-    specialSkills={props.SPcardInfo.velocity} 
+    specialSkills={props.SPcardInfo.specialSkills} 
     fightingSkills={props.SPcardInfo.fightingSkills} 
     special={props.SPcardInfo.special} 
     />

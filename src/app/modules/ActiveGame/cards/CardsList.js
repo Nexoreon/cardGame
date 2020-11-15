@@ -38,12 +38,15 @@ const cardsList = [ //TODO добавить больше карточек для
     {name: 'Бетти Брэнт', imgUrl: './images/37.jpg', intelligence: 261, strength: 42, velocity: 132, specialSkills: 64, fightingSkills: 139},
     {name: 'Красный череп', imgUrl: './images/38.jpg', intelligence: 345, strength: 210, velocity: 138, specialSkills: 97, fightingSkills: 415},
     {name: 'Робби Робертсон', imgUrl: './images/39.jpg', intelligence: 197, strength: 138, velocity: 128, specialSkills: 36, fightingSkills: 142},
-    {name: 'Стервятник', imgUrl: './images/40.jpg', intelligence: 305, strength: 109, velocity: 263, specialSkills: 148, fightingSkills: 213, special: 1},
-    {name: 'Блэйд', imgUrl: './images/41.jpg', intelligence: 83, strength: 157, velocity: 133, specialSkills: 70, fightingSkills: 349, special: 1},
     {name: 'Кейдж', imgUrl: './images/42.jpg', intelligence: 136, strength: 227, velocity: 136, specialSkills: 73, fightingSkills: 279},
     {name: 'Сердце', imgUrl: './images/43.jpg', intelligence: 203, strength: 278, velocity: 214, specialSkills: 306, fightingSkills: 210},
     {name: 'Суперскрулл', imgUrl: './images/44.jpg', intelligence: 85, strength: 428, velocity: 367, specialSkills: 428, fightingSkills: 275},
-    {name: 'Кейн', imgUrl: './images/45.jpg', intelligence: 274, strength: 285, velocity: 198, specialSkills: 99, fightingSkills: 289}
+    {name: 'Кейн', imgUrl: './images/45.jpg', intelligence: 274, strength: 285, velocity: 198, specialSkills: 99, fightingSkills: 289},
+    {name: 'Червь Разума', imgUrl: './images/46.jpg', intelligence: 344, strength: 409, velocity: 373, specialSkills: 487, fightingSkills: 382},
+    {name: 'Туманный Рыцарь', imgUrl: './images/47.jpg', intelligence: 139, strength: 226, velocity: 143, specialSkills: 84, fightingSkills: 150},
+    {name: 'Искра', imgUrl: './images/49.jpg', intelligence: 140, strength: 139, velocity: 87, specialSkills: 275, fightingSkills: 168},
+    {name: 'Расплавленный Человек', imgUrl: './images/50.jpg', intelligence: 85, strength: 348, velocity: 133, specialSkills: 128, fightingSkills: 210},
+    {name: 'Джаггернаут', imgUrl: './images/51.jpg', intelligence: 136, strength: 499, velocity: 101, specialSkills: 85, fightingSkills: 212}
  ]
 
  export default cardsList

@@ -20,7 +20,7 @@ class PopupWindow extends React.Component {
         const closeAnim = this.state.closeAnim
         const popupCls = ['PopupWindow', openAnim ? 'PopupWindow--openAnim' : '', closeAnim ? 'PopupWindow--closeAnim' : '']
         const containerCls =['PopupWindow_Container', openAnim ? 'PopupWindow_Container--openAnim' : '', closeAnim ? 'PopupWindow_Container--closeAnim' : '']
-// console.log(this.props.cButtonTitle, this.props.cFunc)
+
         return(
             <div className={popupCls.join(' ')} >
               <div className={containerCls.join(' ')} onAnimationEnd={() => this.setState({ openAnim: false, closeAnim: false})}>
